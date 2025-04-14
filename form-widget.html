@@ -1,0 +1,125 @@
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style type="text/css">
+    :root {
+      --background: rgb(70, 142, 229);
+      --action: rgb(247, 167, 0);
+      --text: white;
+    }
+    * {
+      font-family: "Calibri";
+      box-sizing: border-box;
+    }
+    body {
+      margin: 1em;
+      width: 100%;
+      height: 100%;
+    }
+    .form-widget {
+      color: var(--text);
+      background-color: var(--background);
+      padding: 0.5em;
+      width: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1024px;
+      min-width: 200px;
+    }
+    .content {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .form input {
+      flex-grow: 1;
+      min-width: 33%;
+      font-size: 1.2em;
+      padding: 3px;
+      color: var(--background);
+    }
+
+    input[type="date"]::before {
+      content: attr(placeholder);
+      position: absolute;
+      background-color: var(--text);
+    }
+
+    input[type="date"]:focus::before,
+    .has-value::before {
+      content: "";
+      display: none;
+    }
+
+    .info {
+      flex-grow: 1;
+      flex-shrink: 2;
+    }
+
+    .form {
+      font-size: 1em;
+      display: flex;
+      flex-grow: 3;
+      /* flex-wrap: wrap; */
+      justify-content: space-around;
+      gap: 5px;
+    }
+
+    .form button {
+      width: 33%;
+      font-size: 1.2em;
+      flex-grow: 2;
+      background-color: var(--action);
+      border: none;
+      padding: 3px;
+      color: var(--text);
+    }
+
+    @media screen and (max-width: 725px) {
+      .content {
+        flex-wrap: wrap-reverse;
+      }
+      .form input {
+        width: 100%;
+      }
+      .form button {
+        width: 100%;
+      }
+    }
+    @media screen and (max-width: 800px) {
+      .form {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-widget">
+    <h2 class="title">This is a simple form widget</h2>
+    <div class="content">
+      <span class="info">Pick dates and find what you search for</span>
+      <form class="form">
+        <input type="date" placeholder="Depart date" />
+        <input type="date" placeholder="Return date" />
+        <button>Search</button>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript" charset="UTF-8">
+    [...document.getElementsByTagName("input")].forEach(
+      (element) => (element.min = new Date().toISOString().split("T")[0])
+    );
+    [...document.getElementsByTagName("input")].forEach((element) =>
+      element.addEventListener("change", function () {
+        if (this.value) {
+          this.classList.add("has-value");
+        } else {
+          this.classList.remove("has-value");
+        }
+      })
+    );
+  </script>
+</body>
